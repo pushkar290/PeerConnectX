@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PeerConnect X - Professional Student Networking</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Animate.css for smooth animations (used only where needed) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container py-3 position-relative">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-gradient-primary rounded glass">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">PeerConnect X</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" id="nav-profile" href="#">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-browse" href="#">Browse Students</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-connections" href="#">My Connections (<span id="connection-count">0</span>)</a>
+            </li>
+            <li class="nav-item mx-2">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="darkModeToggle" />
+                <label class="form-check-label text-white" for="darkModeToggle">Dark Mode</label>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="reset-app" href="#" title="Reset Data">Reset</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sections -->
+    <!-- Profile Section -->
+    <div id="view-profile" class="section d-block animate__animated animate__fadeIn">
+      <!-- Dynamic Profile content will load here -->
+    </div>
+
+    <!-- Browse Students Section -->
+    <div id="view-browse" class="section d-none position-relative">
+      <!-- Advanced Filtering Inputs -->
+      <div class="row mb-4">
+        <div class="col-md-4 mb-2">
+          <input type="text" id="search-input" class="form-control"
+                 placeholder="Search by name or interests..." aria-label="Search students" />
+        </div>
+        <div class="col-md-4 mb-2">
+          <select id="department-filter" class="form-select">
+            <option value="">All Departments</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Electrical Engineering">Electrical Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-2">
+          <select id="year-filter" class="form-select">
+            <option value="">All Years</option>
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year">Fourth Year</option>
+          </select>
+        </div>
+      </div>
+      <!-- Spinner Overlay for Async Simulation -->
+      <div id="browse-spinner" class="overlay-spinner d-none">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div id="students-container" class="row g-3 position-relative"></div>
+    </div>
+
+    <!-- My Connections Section -->
+    <div id="view-connections" class="section d-none">
+      <h4>Your Connections</h4>
+      <div id="connections-container" class="row g-3"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Offcanvas: Profile Editor -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="profileEditor" aria-labelledby="profileEditorLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="profileEditorLabel">Edit Your Profile</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div id="offcanvas-form-container"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Detailed Student View -->
+  <div class="modal fade" id="detailedModal" tabindex="-1" aria-labelledby="detailedModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content glass">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailedModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="detailedModalBody">
+          <!-- Detailed student info loads here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Connection Confirmation -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Confirm Connection</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to connect with <strong id="connName"></strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="confirm-btn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Main JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>

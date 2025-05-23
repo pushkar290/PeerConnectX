@@ -1,0 +1,141 @@
+/* Professional Blue–Gray Gradient Background with subtle animation */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #bdc3c7);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      color: #333;
+      margin: 0;
+      padding-bottom: 80px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Dark Mode Overrides */
+    body.dark-mode {
+      background: linear-gradient(135deg, #1c1e2e, #3d4e62);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      color: #e4e6eb;
+    }
+    body.dark-mode .card { background-color: #242526; color: #e4e6eb; }
+    body.dark-mode .navbar,
+    body.dark-mode .offcanvas { background-color: #3a3b3c !important; }
+    body.dark-mode .form-control {
+      background-color: #3a3b3c;
+      color: #e4e6eb;
+      border-color: #555;
+    }
+
+    /* Glassmorphism & Neumorphism Effects */
+    .glass {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    .neumo {
+      background: #f4f7fc;
+      border-radius: 15px;
+      box-shadow: 8px 8px 16px #c0c5d1, -8px -8px 16px #ffffff;
+    }
+    body.dark-mode .neumo {
+      background: #2a2c31;
+      box-shadow: 8px 8px 16px #1b1d21, -8px -8px 16px #3b3e43;
+    }
+
+    /* Navbar with Professional Gradient */
+    .bg-gradient-primary {
+      background: linear-gradient(135deg, #0052a5, #336699) !important;
+    }
+    .navbar { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    .navbar-brand { font-size: 1.8rem; font-weight: 600; }
+    .nav-link {
+      font-size: 1.1rem;
+      margin-right: 15px;
+      transition: all 0.3s ease;
+    }
+    .nav-link.active { border-bottom: 2px solid #fff; }
+    .nav-link:hover { animation: animate__headShake 1s; }
+
+    /* Section Spacing */
+    .section { margin-top: 30px; }
+
+    /* Form & Buttons */
+    .profile-form label { font-weight: 500; }
+    .profile-form input[type="text"],
+    .profile-form input[type="file"],
+    .profile-form select,
+    .profile-form select[multiple] {
+      border-radius: 5px;
+    }
+    .profile-form button { transition: transform 0.2s; }
+    .profile-form button:hover { transform: scale(1.05); }
+
+    /* Cards */
+    .card {
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover { transform: scale(1.03); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); }
+    .card-img-top {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      object-fit: cover;
+      height: 200px;
+    }
+
+    /* Toast Container */
+    .toast-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1055;
+    }
+
+    /* Profile & Edit Preview */
+    #profile-preview,
+    #edit-profile-preview {
+      max-width: 120px;
+      max-height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #0052a5;
+    }
+
+    /* Progress Bar */
+    #completionBar { height: 20px; }
+
+    /* Spinner Overlay */
+    .overlay-spinner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    /* Reset Link */
+    #reset-app { cursor: pointer; text-decoration: underline; }
+
+    /* Offcanvas Editor */
+    .offcanvas-header { background-color: #0052a5; color: #fff; }
+
+    /* Floating Preview on Hover */
+    .preview-float {
+      position: absolute;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
